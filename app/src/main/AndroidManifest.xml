@@ -1,17 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
+    <queries>
+        <package android:name="lu.lumpenstein.luxradios" />
+        <intent>
+            <action android:name="android.media.browse.MediaBrowserService" />
+        </intent>
+        <intent>
+            <action android:name="lu.lumpenstein.test" />
+        </intent>
+    </queries>
 
+    <!-- To be able to stream audio -->
     <uses-permission android:name="android.permission.INTERNET" />
+    <!-- To be able to determine if internet is available or not -->
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <!-- To make sure the process stays awake during audio playback -->
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
 
+    <!-- We need to set android:usesCleartextTraffic="true" because some streams use the http protocol -->
     <application
-        android:usesCleartextTraffic="true"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.LuxRadios">
+        android:theme="@style/Theme.LuxRadios"
+        android:usesCleartextTraffic="true">
+
         <activity
             android:name=".MainActivity"
             android:exported="true"
@@ -24,6 +39,25 @@
             </intent-filter>
         </activity>
 
-    </application>
+        <!-- To be able to receive button press events from the media control in the notification bar -->
+        <receiver
+            android:name="androidx.media.session.MediaButtonReceiver"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="android.intent.action.MEDIA_BUTTON" />
+            </intent-filter>
+        </receiver>
 
+        <!-- lu.lumpenstein.luxradios.RadioPlayer Service to run when app not open -->
+        <service
+            android:name="RadioPlayerService"
+            android:label="@string/service_name"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.media.browse.MediaBrowserService" />
+                <action android:name="lu.lumpenstein.test" />
+            </intent-filter>
+        </service>
+    </application>
 </manifest>

@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">Lux Radios</string>
+    <string name="service_name">Lux Radios</string>
+    <string name="pause">Pause</string>
+    <string name="play">Play</string>
+    <string name="channel_name">ChNa</string>
+    <string name="channel_description">ChDe</string>
+
 </resources>
