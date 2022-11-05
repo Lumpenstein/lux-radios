@@ -13,10 +13,10 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Icon
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Surface
 import androidx.compose.material.Text
-import androidx.compose.material.icons.Icons
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -24,6 +24,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.core.app.NotificationCompat
 
@@ -35,14 +36,26 @@ private var notification: NotificationCompat? = null
 class MainActivity : ComponentActivity() {
 
     private lateinit var mediaBrowser: MediaBrowserCompat
-    private var isPlaying = false
+
+    // TODO move everything to RadioApp.kt
+    // TODO create VM for RadioApp.kt RadioAppState.kt to hold UiState
+    // TODO get ui to change when isPLaying in VM changes
+    // TODO use materialtheme for colors, typo, etc MaterialTheme.typography.subtitle2, MaterialTheme.shape.large
+    // TODO attach OnError handler on mediaPlayer in RadioPlayer to change isPlaying back to false
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         setContent {
             LuxRadiosTheme {
-                App(RadioPlayer.stations)
+                // A surface container using the 'background' color from the theme
+                Surface(
+                    modifier = Modifier.fillMaxSize(),
+                    color = MaterialTheme.colors.background
+                ) {
+                    App(RadioPlayer.stations)
+                }
             }
         }
 
@@ -89,16 +102,20 @@ fun App(stations: List<RadioStation>) {
             }
         }
         Row(horizontalArrangement = Arrangement.Center, modifier = Modifier.fillMaxWidth()) {
-    //        Icon(painter = painterResource(id = R.drawable.ic_outline_play_arrow_24), "Play Button", modifier =  Modifier.clickable( onClick = {
-    //            RadioPlayer.play()
-    //        }))
-    //        Icon(painter = painterResource(id = R.drawable.ic_outline_pause_24), "Pause Button", modifier =  Modifier.clickable( onClick = {
-    //            RadioPlayer.pause()
-    //        }))
-            if (isPlaying.value == true) {
-                Icon(painter = painterResource(id = R.drawable.ic_outline_stop_24), "Stop Button", modifier =  Modifier.clickable( onClick = {
-                    RadioPlayer.stop()
-                }))
+            //        Icon(painter = painterResource(id = R.drawable.ic_outline_play_arrow_24), "Play Button", modifier =  Modifier.clickable( onClick = {
+            //            RadioPlayer.play()
+            //        }))
+            //        Icon(painter = painterResource(id = R.drawable.ic_outline_pause_24), "Pause Button", modifier =  Modifier.clickable( onClick = {
+            //            RadioPlayer.pause()
+            //        }))
+            if (isPlaying.value == false) {
+                Icon(
+                    painter = painterResource(id = R.drawable.ic_outline_stop_24),
+                    "Stop Button",
+                    modifier = Modifier.clickable(onClick = {
+                        RadioPlayer.stop()
+                    })
+                )
             }
         }
     }
@@ -127,7 +144,7 @@ fun RadioStationCard(station: RadioStation) {
 
         Column {
             Text(
-                text = station.name,
+                text = stringResource(id = station.name),
             )
 
             Spacer(modifier = Modifier.height(4.dp))

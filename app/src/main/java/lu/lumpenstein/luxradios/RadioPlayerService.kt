@@ -20,7 +20,7 @@ private const val MY_MEDIA_ROOT_ID = "media_root_id"
 private const val MY_EMPTY_MEDIA_ROOT_ID = "empty_root_id"
 
 class RadioPlayerService() : MediaBrowserServiceCompat() {
-    private var mediaSession: MediaSessionCompat? = null
+    private lateinit var mediaSession: MediaSessionCompat
     private lateinit var stateBuilder: PlaybackStateCompat.Builder
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
@@ -49,7 +49,7 @@ class RadioPlayerService() : MediaBrowserServiceCompat() {
         super.onCreate()
 
         RadioPlayer.initPlayer()
-//        RadioPlayer.setStation(RadioPlayer.stations[0])
+
         // Create a MediaSessionCompat
         mediaSession = buildMediaSession()
 
