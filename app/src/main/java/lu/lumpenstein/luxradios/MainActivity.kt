@@ -7,27 +7,12 @@ import android.os.Bundle
 import android.support.v4.media.MediaBrowserCompat
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.border
-import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
-import androidx.compose.material.Icon
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
-import androidx.compose.material.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.unit.dp
 import androidx.core.app.NotificationCompat
-
+import lu.lumpenstein.luxradios.ui.screens.RadioScreen
 import lu.lumpenstein.luxradios.ui.theme.LuxRadiosTheme
 
 private var radioPlayer: RadioPlayerService? = null
@@ -54,7 +39,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.background
                 ) {
-                    App(RadioPlayer.stations)
+                    RadioScreen()
                 }
             }
         }
@@ -91,65 +76,4 @@ class MainActivity : ComponentActivity() {
     }
 }
 
-@Composable
-fun App(stations: List<RadioStation>) {
-    var isPlaying = remember { mutableStateOf(RadioPlayer.getMediaPlayer()?.isPlaying) }
-    Column() {
-        // List with Radio Stations
-        LazyColumn() {
-            items(stations) { station ->
-                RadioStationCard(station)
-            }
-        }
-        Row(horizontalArrangement = Arrangement.Center, modifier = Modifier.fillMaxWidth()) {
-            //        Icon(painter = painterResource(id = R.drawable.ic_outline_play_arrow_24), "Play Button", modifier =  Modifier.clickable( onClick = {
-            //            RadioPlayer.play()
-            //        }))
-            //        Icon(painter = painterResource(id = R.drawable.ic_outline_pause_24), "Pause Button", modifier =  Modifier.clickable( onClick = {
-            //            RadioPlayer.pause()
-            //        }))
-            if (isPlaying.value == false) {
-                Icon(
-                    painter = painterResource(id = R.drawable.ic_outline_stop_24),
-                    "Stop Button",
-                    modifier = Modifier.clickable(onClick = {
-                        RadioPlayer.stop()
-                    })
-                )
-            }
-        }
-    }
-}
 
-@Composable
-fun RadioStationCard(station: RadioStation) {
-    Row(modifier = Modifier
-        .padding(all = 8.dp)
-        .wrapContentSize()
-        .clickable(
-            onClick = {
-                RadioPlayer.setStation(station)
-
-            }
-        )) {
-        Image(
-            painter = painterResource(station.img),
-            contentDescription = "Logo of radio station",
-            modifier = Modifier
-                .size(40.dp)
-                .border(1.5.dp, Color.Red)
-        )
-
-        Spacer(modifier = Modifier.width(8.dp))
-
-        Column {
-            Text(
-                text = stringResource(id = station.name),
-            )
-
-            Spacer(modifier = Modifier.height(4.dp))
-
-            Text(text = station.description)
-        }
-    }
-}

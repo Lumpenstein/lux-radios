@@ -11,4 +11,5 @@
     <string name="station_title_essentiel">Essentiel Radio</string>
     <string name="station_title_100_komma_7">100,7</string>
     <string name="station_title_rtl_germany">RTL Radio Germany</string>
+    <string name="notification_text">Tap to open app</string>
 </resources>

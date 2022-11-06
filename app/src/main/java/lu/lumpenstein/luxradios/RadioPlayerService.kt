@@ -12,6 +12,7 @@ import android.support.v4.media.session.MediaSessionCompat
 import android.support.v4.media.session.PlaybackStateCompat
 import android.support.v4.media.session.PlaybackStateCompat.*
 import androidx.annotation.RequiresApi
+import androidx.compose.ui.res.stringResource
 import androidx.core.app.NotificationCompat
 import androidx.media.MediaBrowserServiceCompat
 
@@ -23,6 +24,7 @@ class RadioPlayerService() : MediaBrowserServiceCompat() {
     private lateinit var mediaSession: MediaSessionCompat
     private lateinit var stateBuilder: PlaybackStateCompat.Builder
 
+    // Never called
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
 
         RadioPlayer.initPlayer()
@@ -179,8 +181,9 @@ class RadioPlayerService() : MediaBrowserServiceCompat() {
 ////                        .setShowActionsInCompactView(0/* #1: pause button \*/)
 //                        .setMediaSession(mediaSession?.getSessionToken())
 //                )
-                .setContentTitle("Wonderful music")
-                .setContentText("My Awesome Band")
+                .setSilent(true)
+                .setContentTitle(getString(R.string.app_name))
+                .setContentText(getString(R.string.notification_text))
                 .setContentIntent(contentIntent) // When notification is clicked launch activity
                 //            .setLargeIcon(albumArtBitmap)
                 .build()
