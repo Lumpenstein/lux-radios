@@ -13,7 +13,7 @@ private val DarkColorPalette = darkColors(
 //    secondary = Teal200,
     background = Jet,
     onBackground = GoldenrodYellowLight,
-    surface = Cinereous,
+    surface = JetLigth,
     onSurface = LaurelGreen
 )
 
@@ -21,10 +21,10 @@ private val LightColorPalette = lightColors(
     primary = Jet,
 //    primaryVariant = Purple700,
 //    secondary = Teal200,
-    background = GoldenrodYellowLight,
+    background = CambridgeBlue,
     onBackground = Jet,
-    surface = CampridgeBlue,
-    onSurface = Color.White
+    surface = GoldenrodYellowLight,
+    onSurface = Jet
 
     /* Other default colors to override
     background = Color.White,
