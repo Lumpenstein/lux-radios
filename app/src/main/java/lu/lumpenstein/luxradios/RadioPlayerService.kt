@@ -12,7 +12,6 @@ import android.support.v4.media.session.MediaSessionCompat
 import android.support.v4.media.session.PlaybackStateCompat
 import android.support.v4.media.session.PlaybackStateCompat.*
 import androidx.annotation.RequiresApi
-import androidx.compose.ui.res.stringResource
 import androidx.core.app.NotificationCompat
 import androidx.media.MediaBrowserServiceCompat
 
@@ -25,32 +24,28 @@ class RadioPlayerService() : MediaBrowserServiceCompat() {
     private lateinit var stateBuilder: PlaybackStateCompat.Builder
 
     // Never called
-    override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
-
-        RadioPlayer.initPlayer()
-
-        val action: String? = intent?.action
-        when (action) {
-            ACTION_PLAY.toString() -> {
-                RadioPlayer.play()
-            }
-            ACTION_PAUSE.toString() -> {
-                RadioPlayer.pause()
-            }
-            ACTION_STOP.toString() -> {
-                RadioPlayer.stop()
-            }
-
-        }
-
-        return super.onStartCommand(intent, flags, startId)
-    }
+//    override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
+//
+//        val action: String? = intent?.action
+//        when (action) {
+//            ACTION_PLAY.toString() -> {
+//                RadioPlayer.play()
+//            }
+//            ACTION_PAUSE.toString() -> {
+//                RadioPlayer.pause()
+//            }
+//            ACTION_STOP.toString() -> {
+//                RadioPlayer.stop()
+//            }
+//
+//        }
+//
+//        return super.onStartCommand(intent, flags, startId)
+//    }
 
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate() {
         super.onCreate()
-
-        RadioPlayer.initPlayer()
 
         // Create a MediaSessionCompat
         mediaSession = buildMediaSession()
@@ -73,6 +68,7 @@ class RadioPlayerService() : MediaBrowserServiceCompat() {
     override fun onDestroy() {
         super.onDestroy()
         RadioPlayer.destroyPlayer()
+        // Stop this services
         stopSelf()
     }
 
@@ -160,8 +156,10 @@ class RadioPlayerService() : MediaBrowserServiceCompat() {
 
     private fun buildNotification(notificationManager: NotificationManager): Notification {
         // The PendingIntent to launch our activity if the user selects this notification
-        val contentIntent =
-            PendingIntent.getActivity(this, 0, Intent(this, MainActivity::class.java), 0)
+        val contentIntent = PendingIntent.getActivity(this,
+            0,
+            Intent(this, MainActivity::class.java),
+            PendingIntent.FLAG_IMMUTABLE)
 
         return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             NotificationCompat.Builder(
@@ -178,7 +176,7 @@ class RadioPlayerService() : MediaBrowserServiceCompat() {
                 // Apply the media style template
 //                .setStyle(
 //                    androidx.media.app.NotificationCompat.MediaStyle()
-////                        .setShowActionsInCompactView(0/* #1: pause button \*/)
+//                        .setShowActionsInCompactView(0/* #1: pause button \*/)
 //                        .setMediaSession(mediaSession?.getSessionToken())
 //                )
                 .setSilent(true)
