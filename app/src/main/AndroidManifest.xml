@@ -5,9 +5,6 @@
         <intent>
             <action android:name="android.media.browse.MediaBrowserService" />
         </intent>
-        <intent>
-            <action android:name="lu.lumpenstein.test" />
-        </intent>
     </queries>
 
     <!-- To be able to stream audio -->
@@ -31,6 +28,7 @@
             android:name=".MainActivity"
             android:exported="true"
             android:label="@string/app_name"
+            android:launchMode="singleTask"
             android:theme="@style/Theme.LuxRadios.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -56,7 +54,6 @@
             android:exported="true">
             <intent-filter>
                 <action android:name="android.media.browse.MediaBrowserService" />
-                <action android:name="lu.lumpenstein.test" />
             </intent-filter>
         </service>
     </application>

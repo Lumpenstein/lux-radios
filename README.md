@@ -5,8 +5,9 @@ This app allows for streaming of luxemburgish radio stations.
 ## Features
 
 - 6 Radio Stations
-- Media Controls in Notification Bar
+- Dark/Light Mode
 - Open Source
 - No Tracking / Analytics
+- TODO Media Controls in Notification Bar
 
-+- 12 Stonnen geschafft
++- 16 Stonnen geschafft
