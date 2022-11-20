@@ -12,9 +12,11 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
+import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.tooling.preview.Preview
 import lu.lumpenstein.luxradios.ui.screens.RadioScreen
 import lu.lumpenstein.luxradios.ui.screens.RadioViewModel
 import lu.lumpenstein.luxradios.ui.theme.LuxRadiosTheme
@@ -23,12 +25,16 @@ class MainActivity : ComponentActivity() {
 
     private lateinit var mediaBrowser: MediaBrowserCompat
 
-    // TODO use MainViewModel to hold ui and player state
-    // get ui to change when isPLaying in VM changes
-    // use materialtheme for colors, typo, etc MaterialTheme.typography.subtitle2, MaterialTheme.shape.large
+    // TODO
+    // fix 2 stream urls ara eldo
+    // force portrait mode
+    // better/fix logos for some stations
+    // use materialTheme for colors, typo, etc MaterialTheme.typography.subtitle2, MaterialTheme.shape.large
     // attach OnError handler on mediaPlayer in RadioPlayer to change isPlaying back to false
     // aad pause/play stop/close app buttons to notification
     // determine minimum version (pump it up or fix notifications for older)
+    // move strings to resources
+    // move units colors etc to theme
 
     override fun onSaveInstanceState(outState: Bundle, outPersistentState: PersistableBundle) {
         super.onSaveInstanceState(outState, outPersistentState)
@@ -36,16 +42,9 @@ class MainActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        if (savedInstanceState != null) {
-
-        }
-
         // Create a ViewModel the first time the system calls an activity's onCreate() method.
         // Re-created activities receive the same DiceRollViewModel instance created by the first activity.
-
-        // Use the 'by viewModels()' Kotlin property delegate
-        // from the activity-ktx artifact
+        // Use the 'by viewModels()' Kotlin property delegate from the activity-ktx artifact
         val viewModel: RadioViewModel by viewModels()
 
 //        lifecycleScope.launch {
@@ -69,8 +68,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.background
                 ) {
-                    Text(text = mainUiState.playerState.toString())
-                    RadioScreen(viewModel) // TODO use player state from VM
+                    RadioScreen()
                 }
             }
         }
@@ -96,5 +94,20 @@ class MainActivity : ComponentActivity() {
         mediaBrowser.disconnect()
     }
 }
+
+//@Preview
+//@Composable
+//fun MainActivityPreview() {
+//    LuxRadiosTheme {
+//        // A surface container using the 'background' color from the theme
+//        Surface(
+//            modifier = Modifier.fillMaxSize(),
+//            color = MaterialTheme.colors.background
+//        ) {
+//            Text(text = "PlayerState")
+//            RadioScreen(viewModel)
+//        }
+//    }
+//}
 
 

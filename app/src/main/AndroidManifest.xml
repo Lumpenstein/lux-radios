@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
+
     <queries>
         <package android:name="lu.lumpenstein.luxradios" />
         <intent>
@@ -24,6 +25,7 @@
         android:theme="@style/Theme.LuxRadios"
         android:usesCleartextTraffic="true">
 
+        <!-- We need to set android:launchMode="singleTask" or else each time we launch app via notification intent, we create a new task with bew viewModel -->
         <activity
             android:name=".MainActivity"
             android:exported="true"
@@ -49,9 +51,9 @@
         <!-- lu.lumpenstein.luxradios.RadioPlayer Service to run when app not open -->
         <service
             android:name="RadioPlayerService"
-            android:label="@string/service_name"
             android:enabled="true"
-            android:exported="true">
+            android:exported="true"
+            android:label="@string/service_name">
             <intent-filter>
                 <action android:name="android.media.browse.MediaBrowserService" />
             </intent-filter>

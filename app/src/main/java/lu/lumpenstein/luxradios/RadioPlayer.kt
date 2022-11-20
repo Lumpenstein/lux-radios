@@ -55,6 +55,7 @@ object RadioPlayer {
         }
         mediaPlayer.reset()
 
+        radioViewModel.updateSelectedStation(station)
         mediaPlayer.setDataSource(station.url)
 
         try {

@@ -19,20 +19,21 @@ data class RadioUiState(
 class RadioViewModel : ViewModel() {
     // Radio UI state
     private val _uiState = MutableStateFlow(RadioUiState())
-
     // Backing property to avoid state updates from other classes
     val uiState: StateFlow<RadioUiState> = _uiState.asStateFlow()
-
-//    var userGuess by mutableStateOf("")
-//        private set
-//    fun test() {
-//        userGuess = "Test"
-//    }
 
     fun updateIsPlaying(newState: PlayerState) {
         _uiState.update { currentState ->
             currentState.copy(
                 playerState = newState,
+            )
+        }
+    }
+
+    fun updateSelectedStation(newStation: RadioStation) {
+        _uiState.update { currentState ->
+            currentState.copy(
+                selectedStation = newStation,
             )
         }
     }

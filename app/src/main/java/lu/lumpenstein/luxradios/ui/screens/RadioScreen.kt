@@ -3,8 +3,6 @@ package lu.lumpenstein.luxradios.ui.screens
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.grid.GridCells
-import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.verticalScroll
@@ -31,69 +29,90 @@ import lu.lumpenstein.luxradios.data.RadioStation
 import lu.lumpenstein.luxradios.data.RadioStations
 
 @Composable
-fun RadioScreen(radioViewModel: RadioViewModel) {
+fun RadioScreen(radioViewModel: RadioViewModel = viewModel()) {
     val mainUiState by radioViewModel.uiState.collectAsState()
 
-    Column(horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.SpaceEvenly,
-        modifier = Modifier.verticalScroll(rememberScrollState())
-
-//        modifier = Modifier.scrollable(enabled = true, orientation = Orientation.Vertical, state = )
+    Column(
+        horizontalAlignment = Alignment.CenterHorizontally,
+        modifier = Modifier
+            .verticalScroll(rememberScrollState())
+            .fillMaxSize()
     ) {
 
-        /* APP TITLE */
-        Text(
-            text = stringResource(id = R.string.app_name),
-            Modifier.padding(vertical = 15.dp),
-            color = MaterialTheme.colors.onBackground,
-            fontWeight = FontWeight.W500,
-            fontSize = 8.em,
-            fontFamily = MaterialTheme.typography.h1.fontFamily,
-        )
+        /* HEADER */
+        Box(modifier = Modifier.fillMaxHeight(0.1f)) {
+            /* APP TITLE */
+            Text(
+                text = stringResource(id = R.string.app_name),
+                Modifier
+                    .padding(vertical = 4.dp),
+                color = MaterialTheme.colors.onBackground,
+                fontWeight = FontWeight.W500,
+                fontSize = 8.em,
+                fontFamily = MaterialTheme.typography.h1.fontFamily,
+            )
+        }
 
-        /* MEDIA CONTROLS */
-        when (mainUiState.playerState) {
-            PlayerState.PLAYING -> {
-                Icon(
-                    painter = painterResource(id = R.drawable.ic_outline_stop_24),
-                    contentDescription = "Stop Button",
-                    modifier = Modifier
-                        .clickable(onClick = {
-                            RadioPlayer.stop()
-                        })
-                        .size(48.dp),
-                    tint = MaterialTheme.colors.onBackground,
-                )
+        /* CONTENT */
+        Column(horizontalAlignment = Alignment.CenterHorizontally,
+            modifier = Modifier.weight(0.1f)) {
+
+            /* MEDIA CONTROLS */
+            Row(horizontalArrangement = Arrangement.Center,
+                verticalAlignment = Alignment.CenterVertically,
+                modifier = Modifier.height(56.dp)) {
+                when (mainUiState.playerState) {
+                    PlayerState.PLAYING -> {
+                        //                Text(text = "Playing " + stringResource(id = mainUiState.selectedStation?.name!!))
+                        Icon(
+                            painter = painterResource(id = R.drawable.ic_outline_stop_24),
+                            contentDescription = "Stop Button",
+                            modifier = Modifier
+                                .clickable(onClick = {
+                                    RadioPlayer.stop()
+                                })
+                                .size(48.dp),
+                            tint = MaterialTheme.colors.onBackground,
+                        )
+                    }
+                    PlayerState.STOPPED -> {
+                        Text(
+                            text = "Select a station to start the radio",
+                            color = MaterialTheme.colors.onBackground,
+                            fontSize = 4.em,
+                            fontFamily = MaterialTheme.typography.body1.fontFamily,
+                        )
+                    }
+                    PlayerState.BUFFERING -> {
+                        Text(text = "Buffering")
+                    }
+                    PlayerState.ERROR -> {
+                        Text(text = "An error occurred")
+                    }
+                }
             }
-            PlayerState.STOPPED -> {
-                Text(
-                    text = "Select a station to start the radio",
-                    color = MaterialTheme.colors.onBackground,
-                    fontSize = 4.em,
-                    fontFamily = MaterialTheme.typography.body1.fontFamily,
-                )
+
+            Row() {
+                RadioStationCard(station = RadioStations[0])
+                RadioStationCard(station = RadioStations[1])
             }
-            PlayerState.BUFFERING -> {
-                Text(text = "Buffering")
+            Row () {
+                RadioStationCard(station = RadioStations[2])
+                RadioStationCard(station = RadioStations[3])
             }
-            else -> {
-                Text(text = "Unknown Player state")
+            Row () {
+                RadioStationCard(station = RadioStations[4])
+                RadioStationCard(station = RadioStations[5])
             }
         }
 
-
-        /* RADIO STATION LIST */
-        LazyVerticalGrid(columns = GridCells.Fixed(2), Modifier.height(500.dp), content = {
-            items(RadioStations.size) { index ->
-                RadioStationCard(RadioStations[index])
-            }
-        })
-
         /* FOOTER */
-        Text(
-            text = stringResource(id = R.string.footer_text),
-            color = MaterialTheme.colors.onBackground,
-        )
+        Row() {
+            Text(
+                text = stringResource(id = R.string.footer_text),
+                color = MaterialTheme.colors.onBackground,
+            )
+        }
     }
 }
 

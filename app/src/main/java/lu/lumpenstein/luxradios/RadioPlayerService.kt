@@ -147,7 +147,7 @@ class RadioPlayerService() : MediaBrowserServiceCompat() {
             val name = getString(R.string.channel_name)
             val descriptionText = getString(R.string.channel_description)
             val importance = NotificationManager.IMPORTANCE_DEFAULT
-            val mChannel = NotificationChannel("YOLO", name, importance)
+            val mChannel = NotificationChannel("lux-radios", name, importance)
             mChannel.description = descriptionText
             return mChannel
         }
@@ -164,7 +164,7 @@ class RadioPlayerService() : MediaBrowserServiceCompat() {
         return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             NotificationCompat.Builder(
                 applicationContext,
-                notificationManager.getNotificationChannel("YOLO").id
+                notificationManager.getNotificationChannel("lux-radios").id
             )
                 // Show controls on lock screen even when user hides sensitive content.
                 .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
