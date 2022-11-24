@@ -1,4 +1,4 @@
-package lu.lumpenstein.luxradios
+package lu.lumpenstein.luxradios.feature_radio.presentation
 
 import android.content.ComponentName
 import android.media.AudioManager
@@ -11,14 +11,16 @@ import androidx.activity.viewModels
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
-import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import lu.lumpenstein.luxradios.ui.screens.RadioScreen
-import lu.lumpenstein.luxradios.ui.screens.RadioViewModel
+import lu.lumpenstein.luxradios.MediaBrowserCallbacks
+import lu.lumpenstein.luxradios.RadioPlayer
+import lu.lumpenstein.luxradios.RadioPlayerService
+import lu.lumpenstein.luxradios.feature_radio.presentation.screen_radio.RadioScreen
+import lu.lumpenstein.luxradios.feature_radio.presentation.screen_radio.RadioViewModel
 import lu.lumpenstein.luxradios.ui.theme.LuxRadiosTheme
 
 class MainActivity : ComponentActivity() {
@@ -95,19 +97,18 @@ class MainActivity : ComponentActivity() {
     }
 }
 
-//@Preview
-//@Composable
-//fun MainActivityPreview() {
-//    LuxRadiosTheme {
-//        // A surface container using the 'background' color from the theme
-//        Surface(
-//            modifier = Modifier.fillMaxSize(),
-//            color = MaterialTheme.colors.background
-//        ) {
-//            Text(text = "PlayerState")
-//            RadioScreen(viewModel)
-//        }
-//    }
-//}
+@Preview
+@Composable
+fun MainActivityPreview() {
+    LuxRadiosTheme {
+        // A surface container using the 'background' color from the theme
+        Surface(
+            modifier = Modifier.fillMaxSize(),
+            color = MaterialTheme.colors.background
+        ) {
+//            RadioScreen(mockedViewModel)
+        }
+    }
+}
 
 

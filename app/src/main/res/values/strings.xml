@@ -1,9 +1,9 @@
 <resources>
-    <string name="app_name">Lux Radios</string>
-    <string name="service_name">Lux Radios Service</string>
+    <string name="app_name">Letz Radio</string>
+    <string name="service_name">Letz Radio Service</string>
     <string name="pause">Pause</string>
     <string name="play">Play</string>
-    <string name="channel_name">Lux Radios</string>
+    <string name="channel_name">Letz Radio</string>
     <string name="channel_description">Luxembourg Radio stations</string>
     <string name="station_title_rtl">RTL Letzebuerg</string>
     <string name="station_title_ara">Radio ARA</string>

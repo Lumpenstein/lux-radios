@@ -1,4 +1,4 @@
-package lu.lumpenstein.luxradios.ui.screens
+package lu.lumpenstein.luxradios.feature_radio.presentation.screen_radio
 
 import androidx.lifecycle.ViewModel
 import kotlinx.coroutines.flow.MutableStateFlow

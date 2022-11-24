@@ -4,8 +4,8 @@ import android.media.AudioAttributes
 import android.media.AudioManager
 import android.media.MediaPlayer
 import lu.lumpenstein.luxradios.data.RadioStation
-import lu.lumpenstein.luxradios.ui.screens.PlayerState
-import lu.lumpenstein.luxradios.ui.screens.RadioViewModel
+import lu.lumpenstein.luxradios.feature_radio.presentation.screen_radio.PlayerState
+import lu.lumpenstein.luxradios.feature_radio.presentation.screen_radio.RadioViewModel
 
 // object in Kotlin = Singleton
 object RadioPlayer {

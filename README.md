@@ -1,4 +1,4 @@
- # Lux Radios
+ # Letz Radio
  
 This app allows for streaming of luxemburgish radio stations.
 
